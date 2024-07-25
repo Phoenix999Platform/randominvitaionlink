@@ -41,16 +41,22 @@
       }
 
       // Get a random index for invitationLinks array
-      const randomIndex = Math.floor(Math.random() * invitationLinks.length);
+      function getRandomIndex(array) {
+         return Math.floor(Math.random() * array.length);
+      }
+
+      // Get random indices for invitation link and associated Telegram link
+      const randomInvitationIndex = getRandomIndex(invitationLinks);
+      const randomTelegramIndex = getRandomIndex(invitationLinks);
 
       // Redirect to the random invitation link immediately
-      const randomInvitationLink = invitationLinks[randomIndex].url;
+      const randomInvitationLink = invitationLinks[randomInvitationIndex].url;
       openInvitationLink(randomInvitationLink);
 
       // Open the associated Telegram contact popup after a short delay
       setTimeout(() => {
-         const telegramLink = invitationLinks[randomIndex].telegram;
-         openTelegramPopup(telegramLink);
+         const randomTelegramLink = invitationLinks[randomTelegramIndex].telegram;
+         openTelegramPopup(randomTelegramLink);
       }, 1000); // Adjust delay as needed
    </script>
 </body>
