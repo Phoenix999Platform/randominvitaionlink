@@ -37,26 +37,27 @@
 
       // Function to open a small popup window for contacting Telegram
       function openTelegramPopup(telegramLink) {
-         window.open(telegramLink, 'telegramPopup', 'width=400,height=300');
+         const popupWindow = window.open(telegramLink, 'telegramPopup', 'width=400,height=300');
+
+         // Check if popup window was blocked by the browser
+         if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
+            alert('Popup window was blocked. Please allow popups for this site and try again.');
+         } else {
+            popupWindow.focus();
+         }
       }
 
       // Get a random index for invitationLinks array
-      function getRandomIndex(array) {
-         return Math.floor(Math.random() * array.length);
-      }
+      const randomIndex = Math.floor(Math.random() * invitationLinks.length);
 
-      // Get random indices for invitation link and associated Telegram link
-      const randomInvitationIndex = getRandomIndex(invitationLinks);
-      const randomTelegramIndex = getRandomIndex(invitationLinks);
-
-      // Redirect to the random invitation link immediately
-      const randomInvitationLink = invitationLinks[randomInvitationIndex].url;
+      // Redirect to the random invitation link
+      const randomInvitationLink = invitationLinks[randomIndex].url;
       openInvitationLink(randomInvitationLink);
 
       // Open the associated Telegram contact popup after a short delay
       setTimeout(() => {
-         const randomTelegramLink = invitationLinks[randomTelegramIndex].telegram;
-         openTelegramPopup(randomTelegramLink);
+         const telegramLink = invitationLinks[randomIndex].telegram;
+         openTelegramPopup(telegramLink);
       }, 1000); // Adjust delay as needed
    </script>
 </body>
