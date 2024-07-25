@@ -42,10 +42,10 @@
          if (isMobile) {
             window.open(telegramLink, '_blank'); // Open in a new tab on mobile devices
          } else {
-            const width = 250;
-            const height = 425;
+            const width = 140;
+            const height = 215;
             const left = (window.innerWidth - width) / 2;
-            const top = window.innerHeight + window.scrollY; // Position below the registration tab
+            const top = (window.innerHeight - height) / 2;
 
             const popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
 
