@@ -3,7 +3,7 @@
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>Random Invitation Link with Telegram Contact Popup</title>
+   <title>Random Invitation Link with Telegram Contact</title>
    <style>
       body {
          font-family: Arial, sans-serif;
@@ -35,15 +35,26 @@
          window.open(url, '_blank');
       }
 
-      // Function to open a small popup window for contacting Telegram
-      function openTelegramPopup(telegramLink) {
-         const popupWindow = window.open(telegramLink, 'telegramPopup', 'width=400,height=300');
-
-         // Check if popup window was blocked by the browser
-         if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
-            alert('Popup window was blocked. Please allow popups for this site and try again.');
+      // Function to open the Telegram link
+      function openTelegramLink(telegramLink) {
+         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+         
+         if (isMobile) {
+            window.open(telegramLink, '_blank'); // Open in a new tab on mobile devices
          } else {
-            popupWindow.focus();
+            const width = 280;
+            const height = 430;
+            const left = (window.innerWidth - width) / 2;
+            const top = (window.innerHeight - height) / 2;
+
+            const popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
+
+            // Check if popup window was blocked by the browser
+            if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
+               alert('Popup window was blocked. Please allow popups for this site and try again.');
+            } else {
+               popupWindow.focus();
+            }
          }
       }
 
@@ -54,10 +65,10 @@
       const randomInvitationLink = invitationLinks[randomIndex].url;
       openInvitationLink(randomInvitationLink);
 
-      // Open the associated Telegram contact popup after a short delay
+      // Open the associated Telegram link after a short delay
       setTimeout(() => {
          const telegramLink = invitationLinks[randomIndex].telegram;
-         openTelegramPopup(telegramLink);
+         openTelegramLink(telegramLink);
       }, 1000); // Adjust delay as needed
    </script>
 </body>
