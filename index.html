@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Random Invitation Link with Telegram Contact Popup</title>
+   <style>
+      body {
+         font-family: Arial, sans-serif;
+         padding: 20px;
+      }
+   </style>
+</head>
+<body>
+   <script>
+      // List of invitation links and associated Telegram links
+      const invitationLinks = [
+         {
+            url: "https://www.phoenix88899.com/signup?invite=2hmm4",
+            telegram: "https://t.me/dsinghpx999"
+         },
+         {
+            url: "https://www.phoenix88899.com/signup?invite=upzej",
+            telegram: "https://t.me/maxine8_rich1as"
+         },
+         {
+            url: "https://www.phoenix88899.com/signup?invite=zsrep",
+            telegram: "https://t.me/cha_343"
+         }
+         // Add more objects as needed
+      ];
+
+      // Function to open the invitation link in a new tab/window
+      function openInvitationLink(url) {
+         window.open(url, '_blank');
+      }
+
+      // Function to open a small popup window for contacting Telegram
+      function openTelegramPopup(telegramLink) {
+         const popupWindow = window.open(telegramLink, 'telegramPopup', 'width=400,height=300');
+
+         // Check if popup window was blocked by the browser
+         if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
+            alert('Popup window was blocked. Please allow popups for this site and try again.');
+         } else {
+            popupWindow.focus();
+         }
+      }
+
+      // Get a random index for invitationLinks array
+      const randomIndex = Math.floor(Math.random() * invitationLinks.length);
+
+      // Redirect to the random invitation link
+      const randomInvitationLink = invitationLinks[randomIndex].url;
+      openInvitationLink(randomInvitationLink);
+
+      // Open the associated Telegram contact popup after a short delay
+      setTimeout(() => {
+         const telegramLink = invitationLinks[randomIndex].telegram;
+         openTelegramPopup(telegramLink);
+      }, 1000); // Adjust delay as needed
+   </script>
+</body>
+</html>
