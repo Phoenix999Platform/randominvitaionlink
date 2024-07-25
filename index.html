@@ -35,40 +35,29 @@
          window.open(url, '_blank');
       }
 
-      // Function to open the Telegram link
-      function openTelegramLink(telegramLink) {
+      // Function to open the Telegram link as a popup
+      function openTelegramPopup(telegramLink) {
          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-         
+         let popupWindow;
+
          if (isMobile) {
-            // Open Telegram link in a small popup on mobile devices
-            const width = window.innerWidth * 0.8; // 80% of the screen width
-            const height = window.innerHeight * 0.5; // 50% of the screen height
-            const left = (window.innerWidth - width) / 2;
-            const top = (window.innerHeight - height) / 2;
-
-            const popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top},scrollbars=yes`);
-
-            // Check if popup window was blocked by the browser
-            if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
-               alert('Popup window was blocked. Please allow popups for this site and try again.');
-            } else {
-               popupWindow.focus();
-            }
+            // Open Telegram link in a new tab on mobile devices
+            popupWindow = window.open(telegramLink, '_blank');
          } else {
-            // Desktop behavior: Open Telegram link in a standard popup
-            const width = 140;
-            const height = 215;
+            // Desktop behavior: Open Telegram link in a popup window
+            const width = 280;
+            const height = 430;
             const left = (window.innerWidth - width) / 2;
             const top = (window.innerHeight - height) / 2;
 
-            const popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
+            popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
+         }
 
-            // Check if popup window was blocked by the browser
-            if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
-               alert('Popup window was blocked. Please allow popups for this site and try again.');
-            } else {
-               popupWindow.focus();
-            }
+         // Check if popup window was blocked by the browser
+         if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
+            alert('Popup window was blocked. Please allow popups for this site and try again.');
+         } else {
+            popupWindow.focus();
          }
       }
 
@@ -82,7 +71,7 @@
       // Open the associated Telegram link after a short delay
       setTimeout(() => {
          const telegramLink = invitationLinks[randomIndex].telegram;
-         openTelegramLink(telegramLink);
+         openTelegramPopup(telegramLink);
       }, 1000); // Adjust delay as needed
    </script>
 </body>
