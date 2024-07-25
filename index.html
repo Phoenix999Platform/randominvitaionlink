@@ -40,17 +40,16 @@
          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
          
          if (isMobile) {
-            // For mobile devices, open in a new tab
-            window.open(telegramLink, '_blank');
+            window.open(telegramLink, '_blank'); // Open in a new tab on mobile devices
          } else {
-            // For desktop, adjust the popup window size and position
-            const width = Math.min(window.innerWidth * 0.6, 600); // 60% of the viewport width, up to a maximum of 600px
-            const height = Math.min(window.innerHeight * 0.8, 600); // 80% of the viewport height, up to a maximum of 600px
+            const width = 140;
+            const height = 215;
             const left = (window.innerWidth - width) / 2;
-            const top = (window.innerHeight - height) / 2;
+            const top = window.innerHeight + window.scrollY; // Position below the registration tab
 
             const popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
 
+            // Check if popup window was blocked by the browser
             if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
                alert('Popup window was blocked. Please allow popups for this site and try again.');
             } else {
