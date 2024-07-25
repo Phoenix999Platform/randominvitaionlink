@@ -37,16 +37,22 @@
 
       // Function to open the Telegram link
       function openTelegramLink(telegramLink) {
-         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-         
-         if (isMobile) {
-            window.open(telegramLink, '_blank'); // Open in a new tab on mobile devices
-         } else {
-            const width = 140;
-            const height = 215;
-            const left = (window.innerWidth - width) / 2;
-            const top = (window.innerHeight - height) / 2;
+         const width = 280;
+         const height = 430;
+         const left = (window.innerWidth - width) / 2;
+         const top = (window.innerHeight - height) / 2;
 
+         // Check if the device is mobile
+         const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+         if (isMobile) {
+            // Open Telegram link as a popup on mobile devices
+            const mobilePopup = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
+            if (mobilePopup) {
+               mobilePopup.focus();
+            }
+         } else {
+            // Open Telegram link in a popup window for desktop
             const popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
 
             // Check if popup window was blocked by the browser
