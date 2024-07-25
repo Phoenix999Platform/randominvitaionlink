@@ -30,9 +30,9 @@
          // Add more objects as needed
       ];
 
-      // Function to open the invitation link in the current tab
-      function openInvitationLinkInCurrentTab(url) {
-         window.location.href = url;
+      // Function to open the invitation link in a new tab/window
+      function openInvitationLink(url) {
+         window.open(url, '_blank');
       }
 
       // Function to open the Telegram link
@@ -40,42 +40,36 @@
          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
          
          if (isMobile) {
-            // Open Telegram in a new tab on mobile devices
+            // For mobile devices, open in a new tab
             window.open(telegramLink, '_blank');
-            // Redirect to invitation link page after a short delay
-            setTimeout(() => {
-               const randomInvitationLink = invitationLinks[Math.floor(Math.random() * invitationLinks.length)].url;
-               openInvitationLinkInCurrentTab(randomInvitationLink);
-            }, 1000);
          } else {
-            // Desktop: Open Telegram in a popup window
-            const width = 280; // Adjust as needed
-            const height = 430; // Adjust as needed
+            // For desktop, adjust the popup window size and position
+            const width = Math.min(window.innerWidth * 0.6, 600); // 60% of the viewport width, up to a maximum of 600px
+            const height = Math.min(window.innerHeight * 0.8, 600); // 80% of the viewport height, up to a maximum of 600px
             const left = (window.innerWidth - width) / 2;
             const top = (window.innerHeight - height) / 2;
 
             const popupWindow = window.open(telegramLink, 'telegramPopup', `width=${width},height=${height},left=${left},top=${top}`);
 
-            // Check if popup window was blocked by the browser
             if (!popupWindow || popupWindow.closed || typeof popupWindow.closed === 'undefined') {
-               // If blocked or not opened, open Telegram in a new tab
-               window.open(telegramLink, '_blank');
-               // Redirect to invitation link page after a short delay
-               setTimeout(() => {
-                  const randomInvitationLink = invitationLinks[Math.floor(Math.random() * invitationLinks.length)].url;
-                  openInvitationLinkInCurrentTab(randomInvitationLink);
-               }, 1000);
+               alert('Popup window was blocked. Please allow popups for this site and try again.');
             } else {
-               // Focus on the popup window
                popupWindow.focus();
             }
          }
       }
 
-      // Open the Telegram link after a short delay
+      // Get a random index for invitationLinks array
+      const randomIndex = Math.floor(Math.random() * invitationLinks.length);
+
+      // Redirect to the random invitation link
+      const randomInvitationLink = invitationLinks[randomIndex].url;
+      openInvitationLink(randomInvitationLink);
+
+      // Open the associated Telegram link after a short delay
       setTimeout(() => {
-         const randomTelegramLink = invitationLinks[Math.floor(Math.random() * invitationLinks.length)].telegram;
-         openTelegramLink(randomTelegramLink);
+         const telegramLink = invitationLinks[randomIndex].telegram;
+         openTelegramLink(telegramLink);
       }, 1000); // Adjust delay as needed
    </script>
 </body>
